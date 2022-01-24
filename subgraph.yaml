@@ -2,79 +2,79 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
-    name: StakeManager
-    network: reidev
-    source:
-      address: '0x0000000000000000000000000000000000001001'
-      abi: StakeManager
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Stake
-        - Unstake
-      abis:
-        - name: StakeManager
-          file: ./abis/StakeManager.json
-      eventHandlers:
-        - event: DoUnstake(indexed uint256,indexed address,address,uint256)
-          handler: handleDoUnstake
-        - event: Stake(indexed address,indexed uint256,address,uint256)
-          handler: handleStake
-        - event: StartUnstake(indexed uint256,indexed address,indexed uint256,address,uint256,uint256)
-          handler: handleStartUnstake
-      file: ./src/StakeManager.ts
-  - kind: ethereum
-    name: Fee
-    network: reidev
-    source:
-      address: '0x0000000000000000000000000000000000001005'
-      abi: Fee
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Deposit
-      abis:
-        - name: Fee
-          file: ./abis/Fee.json
-      eventHandlers:
-        - event: Deposit(indexed address,indexed address,indexed uint256)
-          handler: handleDeposit
-        - event: Withdraw(indexed address,indexed address,indexed uint256)
-          handler: handleWithdraw
-      file: ./src/Fee.ts
-  - kind: ethereum
-    name: DaliyData
-    network: reidev
-    source:
-      address: '0x0000000000000000000000000000000000001005'
-      abi: Fee
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Timstamp1
-        - SavingGas
-        - Timstamp2
-        - TotalStake
-      abis:
-        - name: Fee
-          file: ./abis/Fee.json
-        - name: StakeManager
-          file: ./abis/StakeManager.json
-        - name: Getbalance
-          file: ./abis/Getbalance.json
-      eventHandlers:
-        - event: Usage(indexed uint256,indexed uint256)
-          handler: handleUsage
-      blockHandlers:
-        - handler: handleBlock
-      file: ./src/DaliyData.ts
+  # - kind: ethereum
+  #   name: StakeManager
+  #   network: reidev
+  #   source:
+  #     address: '0x0000000000000000000000000000000000001001'
+  #     abi: StakeManager
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.6
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Stake
+  #       - Unstake
+  #     abis:
+  #       - name: StakeManager
+  #         file: ./abis/StakeManager.json
+  #     eventHandlers:
+  #       - event: DoUnstake(indexed uint256,indexed address,address,uint256)
+  #         handler: handleDoUnstake
+  #       - event: Stake(indexed address,indexed uint256,address,uint256)
+  #         handler: handleStake
+  #       - event: StartUnstake(indexed uint256,indexed address,indexed uint256,address,uint256,uint256)
+  #         handler: handleStartUnstake
+  #     file: ./src/StakeManager.ts
+  # - kind: ethereum
+  #   name: Fee
+  #   network: reidev
+  #   source:
+  #     address: '0x0000000000000000000000000000000000001005'
+  #     abi: Fee
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.6
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Deposit
+  #     abis:
+  #       - name: Fee
+  #         file: ./abis/Fee.json
+  #     eventHandlers:
+  #       - event: Deposit(indexed address,indexed address,indexed uint256)
+  #         handler: handleDeposit
+  #       - event: Withdraw(indexed address,indexed address,indexed uint256)
+  #         handler: handleWithdraw
+  #     file: ./src/Fee.ts
+  # - kind: ethereum
+  #   name: DaliyData
+  #   network: reidev
+  #   source:
+  #     address: '0x0000000000000000000000000000000000001005'
+  #     abi: Fee
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.6
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Timstamp1
+  #       - SavingGas
+  #       - Timstamp2
+  #       - TotalStake
+  #     abis:
+  #       - name: Fee
+  #         file: ./abis/Fee.json
+  #       - name: StakeManager
+  #         file: ./abis/StakeManager.json
+  #       - name: Getbalance
+  #         file: ./abis/Getbalance.json
+  #     eventHandlers:
+  #       - event: Usage(indexed uint256,indexed uint256)
+  #         handler: handleUsage
+  #     blockHandlers:
+  #       - handler: handleBlock
+  #     file: ./src/DaliyData.ts
   - kind: ethereum
     name: Validator
     network: reidev
