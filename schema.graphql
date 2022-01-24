@@ -56,10 +56,10 @@ type ValidatorInfo @entity {
   votingPower: BigInt!
   commissionRate: BigInt!
   commissionAddress: Bytes!
+  active: Boolean!
 }
 
 type Validator @entity {
   id: ID!
-  indexedValidator: [ValidatorInfo!]!
-  activeValidator: [ValidatorInfo!]!
+  Validator: [ValidatorInfo!]!
 }
