@@ -1,0 +1,66 @@
+type Timstamp1 @entity {
+  id: ID!
+  timestamp: BigInt!
+}
+
+type Timstamp2 @entity {
+  id: ID!
+  timestamp: BigInt!
+}
+
+type SavingGas @entity {
+  id: ID!
+  timestamp: BigInt!
+  feeUsage: BigInt!
+}
+
+type TotalStake @entity {
+  id: ID!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  feeStake: BigInt
+  voteStake: BigInt
+}
+
+type Stake @entity {
+  id: ID!
+  from: Bytes!
+  validator: Bytes! # address
+  timestamp: BigInt!
+}
+
+type Unstake @entity {
+  id: ID!
+  from: Bytes!
+  to: Bytes!
+  txHash: Bytes!
+  values: BigInt!
+  shares: BigInt!
+  validator: Bytes!
+  timestamp: BigInt!
+  state: Boolean!
+  amount: BigInt
+}
+
+type Deposit @entity {
+  id: ID!
+  by: Bytes!
+  to: Bytes!
+  amount: BigInt!
+  timestamp: BigInt!
+}
+
+type ValidatorInfo @entity {
+  id: ID!
+  address: Bytes!
+  votingPower: BigInt!
+  commissionRate: BigInt!
+  commissionRateAddress: Bytes!
+}
+
+type Validator @entity {
+  id: ID!
+  validators: [ValidatorInfo!]!
+  activeValidators: [ValidatorInfo!]!
+  unactiveValidators: [ValidatorInfo!]!
+}
