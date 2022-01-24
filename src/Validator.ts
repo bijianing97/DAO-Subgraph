@@ -29,12 +29,12 @@ export function handleValidatorBlock(block: ethereum.Block): void {
   const indexedValidatorsLength = stakemanager.indexedValidatorsLength()
   const activeValidators: string[] = []
   const indexedValidators: string[] = []
-  for (let i = new BigInt(0); i.lt(activeValidatorsLengthResult.value); i = i.plus(new BigInt(1))) {
-    activeValidators.push(createValidatorInfo(stakemanager.activeValidators(i).value0, block.number))
-  }
-  for (let i = new BigInt(0); i.lt(indexedValidatorsLength); i = i.plus(new BigInt(1))) {
-    indexedValidators.push(createValidatorInfo(stakemanager.indexedValidatorsByIndex(i), block.number))
-  }
+  // for (let i = new BigInt(0); i.lt(activeValidatorsLengthResult.value); i = i.plus(new BigInt(1))) {
+  //   activeValidators.push(createValidatorInfo(stakemanager.activeValidators(i).value0, block.number))
+  // }
+  // for (let i = new BigInt(0); i.lt(indexedValidatorsLength); i = i.plus(new BigInt(1))) {
+  //   indexedValidators.push(createValidatorInfo(stakemanager.indexedValidatorsByIndex(i), block.number))
+  // }
   ValidatorInstance.activeValidator = activeValidators
   ValidatorInstance.indexedValidator = indexedValidators
   ValidatorInstance.save()
