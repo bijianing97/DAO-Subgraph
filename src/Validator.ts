@@ -6,7 +6,6 @@ function createValidatorInfo(address: Address, blocknumber: BigInt): string {
   const validator = stakemanager.validators(address)
   const id = `${address.toHex()}-${blocknumber.toHex()}`
   let ValidatorInfoInstance = ValidatorInfo.load(id)
-  console.log(id)
   if (ValidatorInfoInstance) {
     return id
   }
@@ -29,12 +28,13 @@ export function handleValidatorBlock(block: ethereum.Block): void {
   const indexedValidatorsLength = stakemanager.indexedValidatorsLength()
   const activeValidators: string[] = []
   const indexedValidators: string[] = []
-  // for (let i = new BigInt(0); i.lt(activeValidatorsLengthResult.value); i = i.plus(new BigInt(1))) {
-  //   activeValidators.push(createValidatorInfo(stakemanager.activeValidators(i).value0, block.number))
-  // }
-  // for (let i = new BigInt(0); i.lt(indexedValidatorsLength); i = i.plus(new BigInt(1))) {
-  //   indexedValidators.push(createValidatorInfo(stakemanager.indexedValidatorsByIndex(i), block.number))
-  // }
+
+  for (let i = BigInt.fromU32(0); i.lt(activeValidatorsLengthResult.value); i = i.plus(BigInt.fromU32(1))) {
+    activeValidators.push(createValidatorInfo(stakemanager.activeValidators(i).value0, block.number))
+  }
+  for (let i = BigInt.fromU32(0); i.lt(indexedValidatorsLength); i = i.plus(BigInt.fromU32(1))) {
+    indexedValidators.push(createValidatorInfo(stakemanager.indexedValidatorsByIndex(i), block.number))
+  }
   ValidatorInstance.activeValidator = activeValidators
   ValidatorInstance.indexedValidator = indexedValidators
   ValidatorInstance.save()
