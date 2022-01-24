@@ -1,4 +1,4 @@
-import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'
+import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import { Validator, ValidatorInfo } from './types/schema'
 import { stakemanager } from './utils/helper'
 
