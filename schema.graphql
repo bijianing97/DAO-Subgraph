@@ -8,7 +8,7 @@ type Timstamp2 @entity {
   timestamp: BigInt!
 }
 
-type SavingGas @entity {
+type GasSave @entity {
   id: ID!
   timestamp: BigInt!
   feeUsage: BigInt!
@@ -55,11 +55,11 @@ type ValidatorInfo @entity {
   address: Bytes!
   votingPower: BigInt!
   commissionRate: BigInt!
-  commissionRateAddress: Bytes!
+  commissionAddress: Bytes!
 }
 
 type Validator @entity {
   id: ID!
-  indexedValidators: [ValidatorInfo!]!
-  activeValidators: [ValidatorInfo!]!
+  indexedValidator: [ValidatorInfo!]!
+  activeValidator: [ValidatorInfo!]!
 }

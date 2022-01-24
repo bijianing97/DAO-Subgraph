@@ -9,10 +9,10 @@ function createValidatorInfo(address: Address, blocknumber: BigInt): string {
   if (ValidatorInfoInstance) {
     return id
   }
-  ValidatorInfoInstance = new ValidatorInfo('id')
+  ValidatorInfoInstance = new ValidatorInfo(id)
   ValidatorInfoInstance.address = address
   ValidatorInfoInstance.commissionRate = validator.value2
-  ValidatorInfoInstance.commissionRateAddress = validator.value1
+  ValidatorInfoInstance.commissionAddress = validator.value1
   ValidatorInfoInstance.votingPower = stakemanager.getVotingPowerByAddress(address)
   ValidatorInfoInstance.save()
   return id
@@ -28,13 +28,13 @@ export function handleValidatorBlock(block: ethereum.Block): void {
   const indexedValidatorsLength = stakemanager.indexedValidatorsLength()
   const activeValidators: string[] = []
   const indexedValidators: string[] = []
-  for (let i = new BigInt(0); i.lt(activeValidatorsLengthResult.value); i.plus(new BigInt(1))) {
+  for (let i = new BigInt(0); i.lt(activeValidatorsLengthResult.value); i = i.plus(new BigInt(1))) {
     activeValidators.push(createValidatorInfo(stakemanager.activeValidators(i).value0, block.number))
   }
-  for (let i = new BigInt(0); i.lt(indexedValidatorsLength); i.plus(new BigInt(1))) {
+  for (let i = new BigInt(0); i.lt(indexedValidatorsLength); i = i.plus(new BigInt(1))) {
     indexedValidators.push(createValidatorInfo(stakemanager.indexedValidatorsByIndex(i), block.number))
   }
-  ValidatorInstance.activeValidators = activeValidators
-  ValidatorInstance.indexedValidators = indexedValidators
+  ValidatorInstance.activeValidator = activeValidators
+  ValidatorInstance.indexedValidator = indexedValidators
   ValidatorInstance.save()
 }

@@ -1,31 +1,31 @@
 import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import { Usage } from './types/Fee/Fee'
-import { Timstamp1, Timstamp2, SavingGas, TotalStake } from './types/schema'
+import { Timstamp1, Timstamp2, GasSave, TotalStake } from './types/schema'
 import { feeAddress, getbalance, stakemanager } from './utils/helper'
 
 export function handleUsage(event: Usage): void {
-  const id = 'SavingGas'
+  const id = 'GasSave'
   let Timestamp1Instance = Timstamp1.load(id)
   if (!Timestamp1Instance) {
     Timestamp1Instance = new Timstamp1(id)
     Timestamp1Instance.timestamp = event.block.timestamp
-    const SavingGasInstance = new SavingGas(event.block.timestamp.toString())
-    SavingGasInstance.timestamp = event.block.timestamp
-    SavingGasInstance.feeUsage = event.params.feeUsage
-    SavingGasInstance.save()
+    const GasSaveInstance = new GasSave(event.block.timestamp.toString())
+    GasSaveInstance.timestamp = event.block.timestamp
+    GasSaveInstance.feeUsage = event.params.feeUsage
+    GasSaveInstance.save()
   } else {
     const oldTimestamp = Timestamp1Instance.timestamp
-    const oldSavingGasInstance = SavingGas.load(oldTimestamp.toString())
+    const oldGasSaveInstance = GasSave.load(oldTimestamp.toString())
     if (oldTimestamp.plus(new BigInt(86400)).lt(event.block.timestamp)) {
       Timestamp1Instance.timestamp = event.block.timestamp
-      const SavingGasInstance = new SavingGas(event.block.timestamp.toString())
-      SavingGasInstance.timestamp = event.block.timestamp
-      SavingGasInstance.feeUsage = oldSavingGasInstance!.feeUsage.plus(event.params.feeUsage)
-      SavingGasInstance.save()
+      const GasSaveInstance = new GasSave(event.block.timestamp.toString())
+      GasSaveInstance.timestamp = event.block.timestamp
+      GasSaveInstance.feeUsage = oldGasSaveInstance!.feeUsage.plus(event.params.feeUsage)
+      GasSaveInstance.save()
     } else {
-      oldSavingGasInstance!.feeUsage = oldSavingGasInstance!.feeUsage.plus(event.params.feeUsage)
+      oldGasSaveInstance!.feeUsage = oldGasSaveInstance!.feeUsage.plus(event.params.feeUsage)
     }
-    oldSavingGasInstance!.save()
+    oldGasSaveInstance!.save()
   }
   Timestamp1Instance.save()
 }
