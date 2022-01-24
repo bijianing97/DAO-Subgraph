@@ -6,6 +6,7 @@ function createValidatorInfo(address: Address, blocknumber: BigInt): string {
   const validator = stakemanager.validators(address)
   const id = `${address.toHex()}-${blocknumber.toHex()}`
   let ValidatorInfoInstance = ValidatorInfo.load(id)
+  console.log(id)
   if (ValidatorInfoInstance) {
     return id
   }
