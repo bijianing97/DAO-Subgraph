@@ -40,13 +40,15 @@ export function handleBlock(block: ethereum.Block): void {
     TotalStakeInstance.blockNumber = block.number
     TotalStakeInstance.timestamp = block.timestamp
     const voteStakeResult = stakemanager.try_totalLockedAmount()
+    if (voteStakeResult.reverted) {
+      return
+    }
     const feeStakeResult = getbalance.try_balance(Address.fromString(feeAddress))
-    if (!voteStakeResult.reverted) {
-      TotalStakeInstance.voteStake = voteStakeResult.value
+    if (feeStakeResult.reverted) {
+      return
     }
-    if (!feeStakeResult.reverted) {
-      TotalStakeInstance.feeStake = feeStakeResult.value
-    }
+    TotalStakeInstance.voteStake = voteStakeResult.value
+    TotalStakeInstance.feeStake = feeStakeResult.value
     TotalStakeInstance.save()
   } else {
     const oldTimestamp = Timestamp2Instance.timestamp
@@ -55,13 +57,15 @@ export function handleBlock(block: ethereum.Block): void {
       TotalStakeInstance.timestamp = block.timestamp
       TotalStakeInstance.blockNumber = block.number
       const voteStakeResult = stakemanager.try_totalLockedAmount()
+      if (voteStakeResult.reverted) {
+        return
+      }
       const feeStakeResult = getbalance.try_balance(Address.fromString(feeAddress))
-      if (!voteStakeResult.reverted) {
-        TotalStakeInstance.voteStake = voteStakeResult.value
+      if (feeStakeResult.reverted) {
+        return
       }
-      if (!feeStakeResult.reverted) {
-        TotalStakeInstance.feeStake = feeStakeResult.value
-      }
+      TotalStakeInstance.voteStake = voteStakeResult.value
+      TotalStakeInstance.feeStake = feeStakeResult.value
       TotalStakeInstance.save()
     }
   }
