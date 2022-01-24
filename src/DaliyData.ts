@@ -3,7 +3,7 @@ import { Usage } from './types/Fee/Fee'
 import { Timstamp1, Timstamp2, SavingGas, TotalStake } from './types/schema'
 import { feeAddress, getbalance, stakemanager } from './utils/helper'
 
-export function handleUsage(event: Usage) {
+export function handleUsage(event: Usage): void {
   const id = 'SavingGas'
   let Timestamp1Instance = Timstamp1.load(id)
   if (!Timestamp1Instance) {
@@ -40,7 +40,7 @@ export function handleBlock(block: ethereum.Block): void {
     TotalStakeInstance.blockNumber = block.number
     TotalStakeInstance.timestamp = block.timestamp
     const voteStakeResult = stakemanager.try_totalLockedAmount()
-    const feeStakeResult = getbalance.try_balance(Address.fromHexString(feeAddress))
+    const feeStakeResult = getbalance.try_balance(Address.fromString(feeAddress))
     if (!voteStakeResult.reverted) {
       TotalStakeInstance.voteStake = voteStakeResult.value
     }
@@ -55,7 +55,7 @@ export function handleBlock(block: ethereum.Block): void {
       TotalStakeInstance.timestamp = block.timestamp
       TotalStakeInstance.blockNumber = block.number
       const voteStakeResult = stakemanager.try_totalLockedAmount()
-      const feeStakeResult = getbalance.try_balance(Address.fromHexString(feeAddress))
+      const feeStakeResult = getbalance.try_balance(Address.fromString(feeAddress))
       if (!voteStakeResult.reverted) {
         TotalStakeInstance.voteStake = voteStakeResult.value
       }

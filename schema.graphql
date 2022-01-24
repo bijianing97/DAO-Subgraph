@@ -60,7 +60,6 @@ type ValidatorInfo @entity {
 
 type Validator @entity {
   id: ID!
-  validators: [ValidatorInfo!]!
+  indexedValidators: [ValidatorInfo!]!
   activeValidators: [ValidatorInfo!]!
-  unactiveValidators: [ValidatorInfo!]!
 }
