@@ -5,7 +5,11 @@ import { stakemanager } from './utils/helper'
 function createValidatorInfo(address: Address, blocknumber: BigInt, active: boolean): string {
   const validator = stakemanager.validators(address)
   const id = `${address.toHex()}-${blocknumber.toHex()}`
-  const ValidatorInfoInstance = new ValidatorInfo(id)
+  let ValidatorInfoInstance = ValidatorInfo.load(id)
+  if (ValidatorInfoInstance) {
+    return id
+  }
+  ValidatorInfoInstance = new ValidatorInfo(id)
   ValidatorInfoInstance.address = address
   ValidatorInfoInstance.commissionRate = validator.value2
   ValidatorInfoInstance.commissionAddress = validator.value1
