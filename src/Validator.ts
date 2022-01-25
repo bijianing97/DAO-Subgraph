@@ -32,13 +32,16 @@ export function handleValidatorBlock(block: ethereum.Block): void {
     indexedAddress.push(stakemanager.indexedValidatorsByIndex(i))
   }
 
-  for (let i = indexedAddress.length - 1; i >= 0; i--) {
-    for (let j = 0; j < activeAddress.length; j++) {
-      if (indexedAddress[i].toHexString() == activeAddress[j].toHexString()) {
-        indexedAddress.splice(i, 1)
+  if (indexedAddress.length != 0) {
+    for (let i = indexedAddress.length - 1; i >= 0; i--) {
+      for (let j = 0; j < activeAddress.length; j++) {
+        if (indexedAddress[i].toHexString() == activeAddress[j].toHexString()) {
+          indexedAddress.splice(i, 1)
+        }
       }
     }
   }
+
   const activeValidators: string[] = []
   const indexedValidators: string[] = []
 
