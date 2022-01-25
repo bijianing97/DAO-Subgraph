@@ -1,15 +1,15 @@
-import { Stake as stakeRecord, Unstake } from './types/schema'
+import { Stakeinfo, Unstake } from './types/schema'
 import { Stake, StartUnstake, DoUnstake } from './types/StakeManager/StakeManager'
 
 export function handleStake(event: Stake): void {
   const from = event.transaction.from
   const validator = event.params.validator
   const id = `${from.toHex()}-${validator.toHex()}`
-  let instance = stakeRecord.load(id)
+  let instance = Stakeinfo.load(id)
   if (instance) {
     return
   }
-  instance = new stakeRecord(id)
+  instance = new Stakeinfo(id)
   instance.from = from
   instance.validator = validator
   instance.timestamp = event.block.timestamp
