@@ -10,6 +10,7 @@ function createValidatorInfo(address: Address, blocknumber: BigInt, active: bool
   ValidatorInfoInstance.commissionRate = validator.value2
   ValidatorInfoInstance.commissionAddress = validator.value1
   ValidatorInfoInstance.votingPower = stakemanager.getVotingPowerByAddress(address)
+  ValidatorInfoInstance.active = active
   ValidatorInfoInstance.save()
   return id
 }
