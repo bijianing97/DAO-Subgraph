@@ -2,14 +2,14 @@ import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import { Validator, ValidatorInfo } from './types/schema'
 import { stakemanager } from './utils/helper'
 
-function createValidatorInfo(address: Address, blocknumber: BigInt) {
+function createValidatorInfo(address: Address, blocknumber: BigInt): string {
   const validator = stakemanager.validators(address)
   const id = `${address.toHex()}-${blocknumber.toHex()}`
   let ValidatorInfoInstance = ValidatorInfo.load(id)
   if (ValidatorInfoInstance) {
     ValidatorInfoInstance.active = true
     ValidatorInfoInstance.save()
-    return { id: id, existed: true }
+    return 'pass'
   }
   ValidatorInfoInstance = new ValidatorInfo(id)
   ValidatorInfoInstance.address = address
@@ -18,7 +18,7 @@ function createValidatorInfo(address: Address, blocknumber: BigInt) {
   ValidatorInfoInstance.votingPower = stakemanager.getVotingPowerByAddress(address)
   ValidatorInfoInstance.active = false
   ValidatorInfoInstance.save()
-  return { id: id, existed: false }
+  return id
 }
 
 export function handleValidatorBlock(block: ethereum.Block): void {
@@ -47,7 +47,7 @@ export function handleValidatorBlock(block: ethereum.Block): void {
   //     }
   //   }
   // }
-  let validators = []
+  let validators: string[] = []
 
   for (let i = 0; i < indexedAddress.length; i++) {
     validators.push(createValidatorInfo(indexedAddress[i], block.number))
@@ -55,8 +55,8 @@ export function handleValidatorBlock(block: ethereum.Block): void {
 
   for (let i = 0; i < activeAddress.length; i++) {
     const result = createValidatorInfo(activeAddress[i], block.number)
-    if (!result.existed) {
-      validators.push(result.id)
+    if (result != 'pass') {
+      validators.push(result)
     }
   }
 
