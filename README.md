@@ -157,6 +157,36 @@ curl -X POST -d '{ "query": "{unstakes{id,from,to,txHash,values,shares,validator
 ```
 
 ```json
+{
+   "data" : {
+      "unstakes" : [
+         {
+            "amount" : "1000",
+            "from" : "0x809fae291f79c9953577ee9007342cff84014b1c",
+            "id" : "0",
+            "shares" : "1000",
+            "state" : true,
+            "timestamp" : "1644374180",
+            "to" : "0x809fae291f79c9953577ee9007342cff84014b1c",
+            "txHash" : "0x63ff6e970aa53d771fde21d0de828ce553e980b86079623aa8a43457b6e04280",
+            "validator" : "0x809fae291f79c9953577ee9007342cff84014b1c",
+            "values" : "1000"
+         },
+         {
+            "amount" : null,
+            "from" : "0x809fae291f79c9953577ee9007342cff84014b1c",
+            "id" : "1",
+            "shares" : "1111",
+            "state" : false,
+            "timestamp" : "1644374228",
+            "to" : "0x8ddc2e1696cef35e905b615bc24e5132c3c1fde4",
+            "txHash" : "0xe11c1a42e7d9f8304464ba1ee51b22479cdb9824f91c49abc56a57e4addcc3d4",
+            "validator" : "0x809fae291f79c9953577ee9007342cff84014b1c",
+            "values" : "1111"
+         }
+      ]
+   }
+}
 ```
 ---
 ```ts
