@@ -3,8 +3,9 @@ This a subgraph for rei-DAO service
 
 ## entity
 
+### GasSave
 ```ts
-type Timstamp1 @entity {
+type Timestamp1 @entity {
   id: ID!
   timestamp: BigInt!
 } // This a entity for recording GasSave timestamp, will only has one instance,
@@ -47,8 +48,9 @@ curl -X POST -d '{ "query": "{gasSaves{id,timestamp,feeUsage}}"}' http://localho
 ```
 
 ---
+### TotalStake
 ```ts
-type Timstamp2 @entity {
+type Timestamp2 @entity {
   id: ID!
   timestamp: BigInt!// This a entity for recording TotalStake timestamp, will only has one instance,
   // id is 'TotalStake',timestamp will store most recent time 
@@ -101,8 +103,10 @@ curl -X POST \
 }
 ```
 ---
+
+### StakeInfo
 ```ts
-type Stakeinfo @entity {
+type StakeInfo @entity {
   id: ID! // stake account address and validator address spliced together,eg, `0x38486e3669a13a8E049C39F271E9318B2Eb18B3b-0x898B84b6a6430EEd36A6cfC14a1cB7DA326c91C4`
   from: Bytes! // address of the account who initiated the stake
   validator: Bytes! // address of validator 
@@ -112,7 +116,7 @@ type Stakeinfo @entity {
 
 - call example
 ```sh
-curl -X POST -d '{ "query": "{stakeinfos{id,from,timestamp,validator}}"}' http://localhost:8000/subgraphs/name/chainmonitor| json_pp
+curl -X POST -d '{ "query": "{stakeInfos{id,from,timestamp,validator}}"}' http://localhost:8000/subgraphs/name/chainmonitor| json_pp
 ```
 
 ```json
@@ -136,8 +140,9 @@ curl -X POST -d '{ "query": "{stakeinfos{id,from,timestamp,validator}}"}' http:/
 }
 ```
 ---
+### UnStakeInfo
 ```ts
-type Unstake @entity {
+type UnStakeInfo @entity {
   id: ID! // unstake unique id
   from: Bytes! // address of the account who initiated the unstake
   to: Bytes!   // address of the account who received the rei
@@ -153,13 +158,13 @@ type Unstake @entity {
 - call example
 
 ```sh
-curl -X POST -d '{ "query": "{unstakes{id,from,to,txHash,values,shares,validator,timestamp,state,amount}}"}' http://localhost:8000/subgraphs/name/chainmonitor| json_pp
+curl -X POST -d '{ "query": "{unStakeInfos{id,from,to,txHash,values,shares,validator,timestamp,state,amount}}"}' http://localhost:8000/subgraphs/name/chainmonitor| json_pp
 ```
 
 ```json
 {
    "data" : {
-      "unstakes" : [
+      "unStakeInfos" : [
          {
             "amount" : "1000",
             "from" : "0x809fae291f79c9953577ee9007342cff84014b1c",
@@ -189,6 +194,7 @@ curl -X POST -d '{ "query": "{unstakes{id,from,to,txHash,values,shares,validator
 }
 ```
 ---
+### Deposit
 ```ts
 type Deposit @entity {
   id: ID! //deposit by account address and to account address spliced together,eg, `0x38486e3669a13a8E049C39F271E9318B2Eb18B3b-0x898B84b6a6430EEd36A6cfC14a1cB7DA326c91C4`
@@ -227,6 +233,7 @@ curl -X POST -d '{ "query": "{deposits{id,by,to,timestamp,amount}}"}' http://loc
 }
 ```
 ---
+### Validator
 ```ts
 type ValidatorInfo @entity { //Record the validator infomation
   id: ID!  //validator address and blocknumber

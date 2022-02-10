@@ -1,13 +1,13 @@
 import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import { Usage } from './types/Fee/Fee'
-import { Timstamp1, Timstamp2, GasSave, TotalStake } from './types/schema'
+import { Timestamp1, Timestamp2, GasSave, TotalStake } from './types/schema'
 import { feeAddress, getbalance, stakemanager } from './utils/helper'
 
 export function handleUsage(event: Usage): void {
   const id = 'GasSave'
-  let Timestamp1Instance = Timstamp1.load(id)
+  let Timestamp1Instance = Timestamp1.load(id)
   if (!Timestamp1Instance) {
-    Timestamp1Instance = new Timstamp1(id)
+    Timestamp1Instance = new Timestamp1(id)
     Timestamp1Instance.timestamp = event.block.timestamp
     const GasSaveInstance = new GasSave(event.block.timestamp.toString())
     GasSaveInstance.timestamp = event.block.timestamp
@@ -32,9 +32,9 @@ export function handleUsage(event: Usage): void {
 
 export function handleBlock(block: ethereum.Block): void {
   const id = 'TotalStake'
-  let Timestamp2Instance = Timstamp2.load(id)
+  let Timestamp2Instance = Timestamp2.load(id)
   if (!Timestamp2Instance) {
-    Timestamp2Instance = new Timstamp2(id)
+    Timestamp2Instance = new Timestamp2(id)
     Timestamp2Instance.timestamp = block.timestamp
     const TotalStakeInstance = new TotalStake(block.timestamp.toString())
     TotalStakeInstance.blockNumber = block.number

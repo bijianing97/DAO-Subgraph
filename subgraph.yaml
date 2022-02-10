@@ -14,7 +14,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Stake
-        - Unstake
+        - UnStakeInfo
       abis:
         - name: StakeManager
           file: ./abis/StakeManager.json
@@ -58,9 +58,9 @@ dataSources:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Timstamp1
+        - Timestamp1
         - SavingGas
-        - Timstamp2
+        - Timestamp2
         - TotalStake
       abis:
         - name: Fee

@@ -1,9 +1,9 @@
-type Timstamp1 @entity {
+type Timestamp1 @entity {
   id: ID!
   timestamp: BigInt!
 }
 
-type Timstamp2 @entity {
+type Timestamp2 @entity {
   id: ID!
   timestamp: BigInt!
 }
@@ -22,14 +22,14 @@ type TotalStake @entity {
   voteStake: BigInt
 }
 
-type Stakeinfo @entity {
+type StakeInfo @entity {
   id: ID!
   from: Bytes!
   validator: Bytes! # address
   timestamp: BigInt!
 }
 
-type Unstake @entity {
+type UnStakeInfo @entity {
   id: ID!
   from: Bytes!
   to: Bytes!
