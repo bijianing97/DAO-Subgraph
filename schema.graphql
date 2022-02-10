@@ -12,6 +12,7 @@ type GasSave @entity {
   id: ID!
   timestamp: BigInt!
   feeUsage: BigInt!
+  feeUsageSum: BigInt
 }
 
 type TotalStake @entity {

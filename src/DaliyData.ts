@@ -12,6 +12,7 @@ export function handleUsage(event: Usage): void {
     const GasSaveInstance = new GasSave(event.block.timestamp.toString())
     GasSaveInstance.timestamp = event.block.timestamp
     GasSaveInstance.feeUsage = event.params.feeUsage
+    GasSaveInstance.feeUsageSum = event.params.feeUsage
     GasSaveInstance.save()
   } else {
     const oldTimestamp = TimestampOneInstance.timestamp
@@ -20,10 +21,12 @@ export function handleUsage(event: Usage): void {
       TimestampOneInstance.timestamp = event.block.timestamp
       const GasSaveInstance = new GasSave(event.block.timestamp.toString())
       GasSaveInstance.timestamp = event.block.timestamp
-      GasSaveInstance.feeUsage = oldGasSaveInstance!.feeUsage.plus(event.params.feeUsage)
+      GasSaveInstance.feeUsage = event.params.feeUsage
+      GasSaveInstance.feeUsageSum = oldGasSaveInstance!.feeUsageSum!.plus(event.params.feeUsage)
       GasSaveInstance.save()
     } else {
       oldGasSaveInstance!.feeUsage = oldGasSaveInstance!.feeUsage.plus(event.params.feeUsage)
+      oldGasSaveInstance!.feeUsageSum = oldGasSaveInstance!.feeUsageSum!.plus(event.params.feeUsage)
     }
     oldGasSaveInstance!.save()
   }
