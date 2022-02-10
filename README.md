@@ -5,7 +5,7 @@ This a subgraph for rei-DAO service
 
 ### GasSave
 ```ts
-type Timestamp1 @entity {
+type TimestampOne @entity {
   id: ID!
   timestamp: BigInt!
 } // This a entity for recording GasSave timestamp, will only has one instance,
@@ -50,7 +50,7 @@ curl -X POST -d '{ "query": "{gasSaves{id,timestamp,feeUsage}}"}' http://localho
 ---
 ### TotalStake
 ```ts
-type Timestamp2 @entity {
+type TimestampTwo @entity {
   id: ID!
   timestamp: BigInt!// This a entity for recording TotalStake timestamp, will only has one instance,
   // id is 'TotalStake',timestamp will store most recent time 

@@ -58,9 +58,9 @@ dataSources:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Timestamp1
+        - TimestampOne
         - SavingGas
-        - Timestamp2
+        - TimestampTwo
         - TotalStake
       abis:
         - name: Fee

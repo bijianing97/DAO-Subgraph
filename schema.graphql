@@ -1,9 +1,9 @@
-type Timestamp1 @entity {
+type TimestampOne @entity {
   id: ID!
   timestamp: BigInt!
 }
 
-type Timestamp2 @entity {
+type TimestampTwo @entity {
   id: ID!
   timestamp: BigInt!
 }
