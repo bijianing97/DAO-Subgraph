@@ -52,7 +52,7 @@ export function handleBlock(block: ethereum.Block): void {
     TotalStakeInstance.save()
   } else {
     const oldTimestamp = Timestamp2Instance.timestamp
-    if (oldTimestamp.plus(new BigInt(86400)).lt(block.timestamp)) {
+    if (oldTimestamp.plus(BigInt.fromU32(86400)).lt(block.timestamp)) {
       const TotalStakeInstance = new TotalStake(block.timestamp.toString())
       TotalStakeInstance.timestamp = block.timestamp
       TotalStakeInstance.blockNumber = block.number
