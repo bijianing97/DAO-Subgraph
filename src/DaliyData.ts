@@ -1,7 +1,7 @@
 import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import { Usage } from './types/Fee/Fee'
 import { TimestampOne, TimestampTwo, GasSave, TotalStake } from './types/schema'
-import { feeAddress, getbalance, stakemanager } from './utils/helper'
+import { feeAddress, getbalance, stakemanager, GasSaveInterval, TotalStakeInterval } from './utils/helper'
 
 export function handleUsage(event: Usage): void {
   const id = 'GasSave'
@@ -16,7 +16,7 @@ export function handleUsage(event: Usage): void {
   } else {
     const oldTimestamp = TimestampOneInstance.timestamp
     const oldGasSaveInstance = GasSave.load(oldTimestamp.toString())
-    if (oldTimestamp.plus(BigInt.fromU32(86400)).lt(event.block.timestamp)) {
+    if (oldTimestamp.plus(BigInt.fromU32(GasSaveInterval)).le(event.block.timestamp)) {
       TimestampOneInstance.timestamp = event.block.timestamp
       const GasSaveInstance = new GasSave(event.block.timestamp.toString())
       GasSaveInstance.timestamp = event.block.timestamp
@@ -52,7 +52,7 @@ export function handleBlock(block: ethereum.Block): void {
     TotalStakeInstance.save()
   } else {
     const oldTimestamp = TimestampTwoInstance.timestamp
-    if (oldTimestamp.plus(BigInt.fromU32(86400)).lt(block.timestamp)) {
+    if (oldTimestamp.plus(BigInt.fromU32(TotalStakeInterval)).le(block.timestamp)) {
       TimestampTwoInstance.timestamp = block.timestamp
       TimestampTwoInstance.save()
       const TotalStakeInstance = new TotalStake(block.timestamp.toString())
