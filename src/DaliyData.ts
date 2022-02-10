@@ -16,7 +16,7 @@ export function handleUsage(event: Usage): void {
   } else {
     const oldTimestamp = Timestamp1Instance.timestamp
     const oldGasSaveInstance = GasSave.load(oldTimestamp.toString())
-    if (oldTimestamp.plus(new BigInt(86400)).lt(event.block.timestamp)) {
+    if (oldTimestamp.plus(BigInt.fromU32(86400)).lt(event.block.timestamp)) {
       Timestamp1Instance.timestamp = event.block.timestamp
       const GasSaveInstance = new GasSave(event.block.timestamp.toString())
       GasSaveInstance.timestamp = event.block.timestamp
