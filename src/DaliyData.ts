@@ -6,6 +6,9 @@ import { feeAddress, getbalance, stakemanager, GasSaveInterval, TotalStakeInterv
 export function handleUsage(event: Usage): void {
   const id = 'GasSave'
   let TimestampOneInstance = TimestampOne.load(id)
+  if (event.params.feeUsage == BigInt.fromU32(0)) {
+    return
+  }
   if (!TimestampOneInstance) {
     TimestampOneInstance = new TimestampOne(id)
     TimestampOneInstance.timestamp = event.block.timestamp
