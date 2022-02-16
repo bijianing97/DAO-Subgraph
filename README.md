@@ -15,7 +15,8 @@ type TimestampOne @entity {
 type GasSave @entity {
   id: ID! // timestamp toString
   timestamp: BigInt!
-  feeUsage: BigInt! // Total free fee usage
+  feeUsage: BigInt! // hourly free fee usage
+  feeUsageSum: BigInt! // Total free fee usage
 }
 ```
 - call example
