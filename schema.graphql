@@ -30,6 +30,15 @@ type StakeInfo @entity {
   timestamp: BigInt!
 }
 
+type StakeInfoMore @entity {
+  id: ID!
+  from: Bytes!
+  validator: Bytes!
+  timestamp: BigInt!
+  to: Bytes!
+  shares: BigInt!
+}
+
 type UnStakeInfo @entity {
   id: ID!
   from: Bytes!
