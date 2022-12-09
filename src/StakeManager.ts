@@ -13,8 +13,6 @@ export function handleStake(event: Stake): void {
   instance.from = from
   instance.validator = validator
   instance.timestamp = event.block.timestamp
-  instance.to = event.params.to
-  instance.shares = event.params.shares
   instance.save()
 }
 
