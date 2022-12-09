@@ -28,6 +28,8 @@ type StakeInfo @entity {
   from: Bytes!
   validator: Bytes! # address
   timestamp: BigInt!
+  to: Bytes!
+  shares: BigInt!
 }
 
 type UnStakeInfo @entity {
