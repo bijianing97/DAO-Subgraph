@@ -73,3 +73,22 @@ type Validator @entity {
   id: ID!
   Validator: [ValidatorInfo!]!
 }
+
+type JailRecord @entity {
+  id: ID!
+  address: Bytes!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  unjailedBlockNumber: BigInt
+  unjailedTimestamp: BigInt
+  jailed: Boolean!
+  unjailedForfeit: BigInt
+}
+
+type MinerInfo @entity {
+  id: ID!
+  lastJailedNumber: BigInt!
+  lastJailedId: String!
+  jailed: Boolean!
+  jailedRecord: [JailRecord!]!
+}
