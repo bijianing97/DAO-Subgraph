@@ -100,7 +100,7 @@ dataSources:
       file: ./src/Validator.ts
   - kind: ethereum
     name: Prison
-    network: reimain
+    network: reitest
     source:
       address: '0x0000000000000000000000000000000000001008'
       abi: Prison

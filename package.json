@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ chainmonitor9629061",
-    "create-local": "graph create --node http://localhost:8020/ chainmonitor9629061",
-    "remove-local": "graph remove --node http://localhost:8020/ chainmonitor9629061",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainmonitor9629061",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ chainmonitor7216473",
+    "create-local": "graph create --node http://localhost:8020/ chainmonitor7216473",
+    "remove-local": "graph remove --node http://localhost:8020/ chainmonitor7216473",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainmonitor7216473",
     "clean": "rm -rf build/ && rm -rf src/types/"
   },
   "dependencies": {

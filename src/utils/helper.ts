@@ -12,11 +12,9 @@ export const stakemanager = StakeManager.bind(Address.fromString(stakeManagerAdd
 export const prison = Prison.bind(Address.fromString(prisonAddress))
 export const GasSaveInterval = 3600
 export const TotalStakeInterval = 3600
-export const hardforkBlock = 9629061
+export const hardforkBlock = 7216473
 export const genesisValidators = [
-  '0x2957879b3831b5ac1ef0ea1fb08dd21920f439b4',
-  '0xaa714ecc110735b4e114c8b35f035fc8706ff930',
-  '0x1b0885d33b43a696cd5517244a4fcb20b929f79d',
-  '0xb7a19f9b6269c26c5ef901bd128c364dd9ddc53a',
-  '0x0efe0da2b918412f1009337fe86321d88de091fb',
+  '0x4779af7e65c055979c8100f2183635e5d28c78f5',
+  '0x116f46eb05d5e42b4cd10e70b1b49706942f5948',
+  '0x7d8f270d34a2b78ed7e64c173f82919ac1006374',
 ]
