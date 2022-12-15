@@ -99,7 +99,7 @@ dataSources:
   #       - handler: handleValidatorBlock
   #     file: ./src/Validator.ts
   - kind: ethereum
-    name: StakeManager
+    name: Prison
     network: reidev
     source:
       address: '0x0000000000000000000000000000000000001008'
