@@ -100,7 +100,7 @@ dataSources:
   #     file: ./src/Validator.ts
   - kind: ethereum
     name: StakeManager
-    network: reidev1
+    network: reidev
     source:
       address: '0x0000000000000000000000000000000000001008'
       abi: Prison
