@@ -1,6 +1,6 @@
-import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
+import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'
 import { Validator, ValidatorInfo } from './types/schema'
-import { stakemanager } from './utils/helper'
+import { stakemanager, genesisValidators, hardforkBlock } from './utils/helper'
 
 function createValidatorInfo(address: Address, blocknumber: BigInt): string {
   const validator = stakemanager.validators(address)
@@ -21,33 +21,62 @@ function createValidatorInfo(address: Address, blocknumber: BigInt): string {
   return id
 }
 
-export function handleValidatorBlock(block: ethereum.Block): void {
-  const activeValidatorsLengthResult = stakemanager.try_activeValidatorsLength()
-  if (activeValidatorsLengthResult.reverted) {
-    return
+function validatorsDecode(data: Bytes): BigInt[] {
+  const ids: BigInt[] = []
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i]
+    if (item >= 233) {
+      const length = 255 - item
+      const bytes = data.slice(i + 1, i + 1 + length) as Bytes
+      ids.push(BigInt.fromUnsignedBytes(bytes))
+      i += length
+    } else {
+      ids.push(BigInt.fromI32(item))
+    }
+    const prioritySign = data[i + 1]
+    const isNeg = prioritySign >> 7 === 1
+    const length = isNeg ? prioritySign - 128 : prioritySign
+    i += length + 1
   }
+  return ids
+}
+
+export function handleValidatorBlock(block: ethereum.Block): void {
   const id = block.number.toString()
-  const ValidatorInstance = new Validator(id)
+  let ValidatorInstance = Validator.load(id)
+  if (!ValidatorInstance) {
+    ValidatorInstance = new Validator(id)
+  }
+  let validators: string[] = []
   const indexedValidatorsLength = stakemanager.indexedValidatorsLength()
   const activeAddress: Address[] = []
   const indexedAddress: Address[] = []
-  for (let i = BigInt.fromU32(0); i.lt(activeValidatorsLengthResult.value); i = i.plus(BigInt.fromU32(1))) {
-    activeAddress.push(stakemanager.activeValidators(i).value0)
+  if (block.number.lt(BigInt.fromU32(hardforkBlock))) {
+    const activeValidatorsLengthResult = stakemanager.try_activeValidatorsLength()
+    if (activeValidatorsLengthResult.reverted) {
+      return
+    }
+    for (let i = BigInt.fromU32(0); i.lt(activeValidatorsLengthResult.value); i = i.plus(BigInt.fromU32(1))) {
+      activeAddress.push(stakemanager.activeValidators(i).value0)
+    }
+  } else {
+    const validatorsInfo = stakemanager.try_getActiveValidatorInfos()
+    if (validatorsInfo.reverted) {
+      return
+    }
+    const ids = validatorsDecode(validatorsInfo.value)
+    for (let i = 0; i < ids.length; i++) {
+      if (ids[i].lt(BigInt.fromU32(genesisValidators.length))) {
+        activeAddress.push(Address.fromString(genesisValidators[ids[i].toU32()]))
+      } else {
+        activeAddress.push(stakemanager.indexedValidatorsById(ids[i]))
+      }
+    }
   }
+
   for (let i = BigInt.fromU32(0); i.lt(indexedValidatorsLength); i = i.plus(BigInt.fromU32(1))) {
     indexedAddress.push(stakemanager.indexedValidatorsByIndex(i))
   }
-
-  // if (indexedAddress.length != 0) {
-  //   for (let i = indexedAddress.length - 1; i >= 0; i--) {
-  //     for (let j = 0; j < activeAddress.length; j++) {
-  //       if (indexedAddress[i].toHexString() == activeAddress[j].toHexString()) {
-  //         indexedAddress.splice(i, 1)
-  //       }
-  //     }
-  //   }
-  // }
-  let validators: string[] = []
 
   for (let i = 0; i < indexedAddress.length; i++) {
     validators.push(createValidatorInfo(indexedAddress[i], block.number))

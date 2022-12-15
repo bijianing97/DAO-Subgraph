@@ -30,6 +30,15 @@ type StakeInfo @entity {
   timestamp: BigInt!
 }
 
+type StakeInfoMore @entity {
+  id: ID!
+  from: Bytes!
+  validator: Bytes!
+  timestamp: BigInt!
+  to: Bytes!
+  shares: BigInt!
+}
+
 type UnStakeInfo @entity {
   id: ID!
   from: Bytes!
@@ -63,4 +72,23 @@ type ValidatorInfo @entity {
 type Validator @entity {
   id: ID!
   Validator: [ValidatorInfo!]!
+}
+
+type JailRecord @entity {
+  id: ID!
+  address: Bytes!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  unjailedBlockNumber: BigInt
+  unjailedTimestamp: BigInt
+  jailed: Boolean!
+  unjailedForfeit: BigInt
+}
+
+type MinerInfo @entity {
+  id: ID!
+  lastJailedNumber: BigInt!
+  lastJailedId: String!
+  jailed: Boolean!
+  jailedRecord: [JailRecord!]!
 }
