@@ -14,10 +14,9 @@ export function handleStake(event: Stake): void {
   instance2.to = event.params.to
   instance2.shares = event.params.shares
   instance2.save()
-  if (instance) {
-    return
+  if (!instance) {
+    instance = new StakeInfo(id)
   }
-  instance = new StakeInfo(id)
   instance.from = from
   instance.validator = validator
   instance.timestamp = event.block.timestamp

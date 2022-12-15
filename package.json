@@ -8,6 +8,7 @@
     "create-local": "graph create --node http://localhost:8020/ chainmonitor7216473",
     "remove-local": "graph remove --node http://localhost:8020/ chainmonitor7216473",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainmonitor7216473",
+    "one": "graph remove --node http://localhost:8020/ chainmonitor7216473 && graph codegen --output-dir src/types/ && graph build && graph create --node http://localhost:8020/ chainmonitor7216473 && graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainmonitor7216473",
     "clean": "rm -rf build/ && rm -rf src/types/"
   },
   "dependencies": {
