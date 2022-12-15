@@ -9,37 +9,39 @@ export function handlePrisonBlock(block: ethereum.Block): void {
     return
   }
   const jailedContractsLength = jailedContracts.value
-  if (jailedContractsLength.gt(BigInt.fromI32(0))) {
-    for (let i = BigInt.fromI32(0); i.lt(jailedContractsLength); i = i.plus(BigInt.fromI32(1))) {
-      const minerAddress = prison.getJailedMinersByIndex(i)
-      let minerInfo = MinerInfo.load(minerAddress.toHex())
-      if (!minerInfo) {
-        minerInfo = new MinerInfo(minerAddress.toHex())
-        const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toHex()}`)
-        jailRecord.address = minerAddress
-        jailRecord.timestamp = block.timestamp
-        jailRecord.blockNumber = block.number
-        jailRecord.save()
-        minerInfo.jailedRecord = [jailRecord.id]
-        minerInfo.lastJailedId = jailRecord.id
-        minerInfo.lastJailedNumber = block.number
-        minerInfo.jailed = true
-      } else if (!minerInfo.jailed) {
-        const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toHex()}`)
-        jailRecord.address = minerAddress
-        jailRecord.timestamp = block.timestamp
-        jailRecord.blockNumber = block.number
-        jailRecord.save()
-        const jailedRecord = minerInfo.jailedRecord
-        jailedRecord.push(jailRecord.id)
-        minerInfo.jailedRecord = jailedRecord
-        minerInfo.lastJailedId = jailRecord.id
-        minerInfo.lastJailedNumber = block.number
-        minerInfo.jailed = true
-      } else {
-        continue
-      }
+  if (jailedContractsLength.equals(BigInt.fromU32(0))) {
+    return
+  }
+  for (let i = BigInt.fromU32(0); i.lt(jailedContractsLength); i = i.plus(BigInt.fromU32(1))) {
+    const minerAddress = prison.getJailedMinersByIndex(i)
+    let minerInfo = MinerInfo.load(minerAddress.toHex())
+    if (!minerInfo) {
+      minerInfo = new MinerInfo(minerAddress.toHex())
+      const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toHex()}`)
+      jailRecord.address = minerAddress
+      jailRecord.timestamp = block.timestamp
+      jailRecord.blockNumber = block.number
+      jailRecord.save()
+      minerInfo.jailedRecord = [jailRecord.id]
+      minerInfo.lastJailedId = jailRecord.id
+      minerInfo.lastJailedNumber = block.number
+      minerInfo.jailed = true
       minerInfo.save()
+    } else if (!minerInfo.jailed) {
+      const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toHex()}`)
+      jailRecord.address = minerAddress
+      jailRecord.timestamp = block.timestamp
+      jailRecord.blockNumber = block.number
+      jailRecord.save()
+      const jailedRecord = minerInfo.jailedRecord
+      jailedRecord.push(jailRecord.id)
+      minerInfo.jailedRecord = jailedRecord
+      minerInfo.lastJailedId = jailRecord.id
+      minerInfo.lastJailedNumber = block.number
+      minerInfo.jailed = true
+      minerInfo.save()
+    } else {
+      continue
     }
   }
 }
