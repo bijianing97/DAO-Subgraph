@@ -4,9 +4,13 @@ import { ethereum, BigInt } from '@graphprotocol/graph-ts'
 import { prison } from './utils/helper'
 
 export function handlePrisonBlock(block: ethereum.Block): void {
-  const jailedContracts = prison.getJailedMinersLength()
-  if (jailedContracts.gt(BigInt.fromI32(0))) {
-    for (let i = BigInt.fromI32(0); i.lt(jailedContracts); i = i.plus(BigInt.fromI32(1))) {
+  const jailedContracts = prison.try_getJailedMinersLength()
+  if (jailedContracts.reverted) {
+    return
+  }
+  const jailedContractsLength = jailedContracts.value
+  if (jailedContractsLength.gt(BigInt.fromI32(0))) {
+    for (let i = BigInt.fromI32(0); i.lt(jailedContractsLength); i = i.plus(BigInt.fromI32(1))) {
       const minerAddress = prison.getJailedMinersByIndex(i)
       let minerInfo = MinerInfo.load(minerAddress.toHex())
       if (!minerInfo) {
