@@ -49,7 +49,10 @@ export function handlePrisonBlock(block: ethereum.Block): void {
 export function handleUnjail(event: Unjail): void {
   const minerAddress = event.params.miner
   const minerInfo = MinerInfo.load(minerAddress.toHex())
-  if (minerInfo && minerInfo.jailed) {
+  if (!minerInfo) {
+    return
+  }
+  if (minerInfo.jailed) {
     const recordId = minerInfo.lastJailedId
     const jailRecord = JailRecord.load(recordId)
     if (jailRecord) {
