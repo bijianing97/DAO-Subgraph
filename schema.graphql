@@ -89,6 +89,6 @@ type MinerInfo @entity {
   id: ID!
   lastJailedNumber: BigInt!
   lastJailedId: String!
-  jailed: Boolean!
+  jailed: Boolean
   jailedRecord: [JailRecord!]!
 }
