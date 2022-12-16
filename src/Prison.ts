@@ -14,9 +14,9 @@ export function handlePrisonBlock(block: ethereum.Block): void {
   }
   for (let i = BigInt.fromU32(0); i.lt(jailedContractsLength); i = i.plus(BigInt.fromU32(1))) {
     const minerAddress = prison.getJailedMinersByIndex(i)
-    let minerInfo = MinerInfo.load(minerAddress.toHex())
+    let minerInfo = MinerInfo.load(`${minerAddress.toHex()}`)
     if (!minerInfo) {
-      minerInfo = new MinerInfo(minerAddress.toHex())
+      minerInfo = new MinerInfo(`${minerAddress.toHex()}`)
       const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toString()}`)
       jailRecord.address = minerAddress
       jailRecord.timestamp = block.timestamp
@@ -48,7 +48,7 @@ export function handlePrisonBlock(block: ethereum.Block): void {
 
 // export function handleUnjail(event: Unjail): void {
 //   const minerAddress = event.params.miner
-//   const minerInfo = MinerInfo.load(minerAddress.toHex())
+//   const minerInfo = MinerInfo.load(`${minerAddress.toHex()}`)
 //   if (!minerInfo) {
 //     return
 //   }
