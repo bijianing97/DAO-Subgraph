@@ -17,7 +17,7 @@ export function handlePrisonBlock(block: ethereum.Block): void {
     let minerInfo = MinerInfo.load(minerAddress.toHexString())
     if (!minerInfo) {
       minerInfo = new MinerInfo(minerAddress.toHexString())
-      const jailRecord = new JailRecord(`${minerAddress.toString()}-${block.number.toString()}`)
+      const jailRecord = new JailRecord(`${minerAddress.toHexString()}-${block.number.toString()}`)
       jailRecord.address = minerAddress
       jailRecord.timestamp = block.timestamp
       jailRecord.blockNumber = block.number
@@ -28,7 +28,7 @@ export function handlePrisonBlock(block: ethereum.Block): void {
       minerInfo.jailed = true
       minerInfo.save()
     } else if (!minerInfo.jailed) {
-      const jailRecord = new JailRecord(`${minerAddress.toString()}-${block.number.toString()}`)
+      const jailRecord = new JailRecord(`${minerAddress.toHexString()}-${block.number.toString()}`)
       jailRecord.address = minerAddress
       jailRecord.timestamp = block.timestamp
       jailRecord.blockNumber = block.number
