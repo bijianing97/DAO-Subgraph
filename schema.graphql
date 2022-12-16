@@ -81,7 +81,6 @@ type JailRecord @entity {
   timestamp: BigInt!
   unjailedBlockNumber: BigInt
   unjailedTimestamp: BigInt
-  jailed: Boolean!
   unjailedForfeit: BigInt
 }
 
@@ -89,6 +88,6 @@ type MinerInfo @entity {
   id: ID!
   lastJailedNumber: BigInt!
   lastJailedId: String!
-  jailed: Boolean
+  jailed: Boolean!
   jailedRecord: [JailRecord!]!
 }
