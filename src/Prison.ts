@@ -44,22 +44,22 @@ export function handlePrisonBlock(block: ethereum.Block): void {
   }
 }
 
-// export function handleUnjail(event: Unjail): void {
-//   const minerAddress = event.params.miner
-//   const minerInfo = MinerInfo.load(`${minerAddress.toHex()}`)
-//   if (!minerInfo) {
-//     return
-//   }
-//   if (minerInfo.jailed) {
-//     const recordId = minerInfo.lastJailedId
-//     const jailRecord = JailRecord.load(recordId)
-//     if (jailRecord) {
-//       minerInfo.jailed = false
-//       jailRecord.unjailedTimestamp = event.block.timestamp
-//       jailRecord.unjailedBlockNumber = event.block.number
-//       jailRecord.unjailedForfeit = event.params.forfeit
-//       jailRecord.save()
-//     }
-//     minerInfo.save()
-//   }
-// }
+export function handleUnjail(event: Unjail): void {
+  const minerAddress = event.params.miner
+  const minerInfo = MinerInfo.load(`${minerAddress.toHex()}`)
+  if (!minerInfo) {
+    return
+  }
+  if (minerInfo.jailed) {
+    const recordId = minerInfo.lastJailedId
+    const jailRecord = JailRecord.load(recordId)
+    if (jailRecord) {
+      minerInfo.jailed = false
+      jailRecord.unjailedTimestamp = event.block.timestamp
+      jailRecord.unjailedBlockNumber = event.block.number
+      jailRecord.unjailedForfeit = event.params.forfeit
+      jailRecord.save()
+    }
+    minerInfo.save()
+  }
+}
