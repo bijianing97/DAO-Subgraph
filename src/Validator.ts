@@ -21,17 +21,17 @@ function createValidatorInfo(address: Address, blocknumber: BigInt): string {
   return id
 }
 
-function validatorsDecode(data: Bytes) {
-  const ids = []
+function validatorsDecode(data: Bytes): BigInt[] {
+  const ids: BigInt[] = []
   for (let i = 0; i < data.length; i++) {
     const item = data[i]
     if (item >= 233) {
       const length = 255 - item
-      const bytes = data.slice(i + 1, i + 1 + length)
-      BigInt.fromUnsignedBytes(bytes as any)
+      const bytes = data.slice(i + 1, i + 1 + length) as Bytes
+      ids.push(BigInt.fromUnsignedBytes(bytes))
       i += length
     } else {
-      ids.push(BigInt.fromU32(item))
+      ids.push(BigInt.fromI32(item))
     }
     const prioritySign = data[i + 1]
     const isNeg = prioritySign >> 7 === 1

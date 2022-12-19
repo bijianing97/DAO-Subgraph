@@ -81,7 +81,6 @@ type JailRecord @entity {
   timestamp: BigInt!
   unjailedBlockNumber: BigInt
   unjailedTimestamp: BigInt
-  jailed: Boolean!
   unjailedForfeit: BigInt
 }
 

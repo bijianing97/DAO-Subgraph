@@ -5,7 +5,7 @@ export function handleStake(event: Stake): void {
   const from = event.transaction.from
   const validator = event.params.validator
   const id = `${from.toHex()}-${validator.toHex()}`
-  const id2 = `${validator.toHex()}-${from.toHex()}-${event.transaction.hash.toHex()}-${event.logIndex.toHex()}`
+  const id2 = `${validator.toHex()}-${from.toHex()}-${event.transaction.hash.toString()}-${event.logIndex.toString()}`
   let instance = StakeInfo.load(id)
   const instance2 = new StakeInfoMore(id2)
   instance2.from = from
@@ -14,10 +14,9 @@ export function handleStake(event: Stake): void {
   instance2.to = event.params.to
   instance2.shares = event.params.shares
   instance2.save()
-  if (instance) {
-    return
+  if (!instance) {
+    instance = new StakeInfo(id)
   }
-  instance = new StakeInfo(id)
   instance.from = from
   instance.validator = validator
   instance.timestamp = event.block.timestamp
