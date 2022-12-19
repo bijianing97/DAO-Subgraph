@@ -81,7 +81,7 @@ dataSources:
   #     file: ./src/DaliyData.ts
   - kind: ethereum
     name: Validator
-    network: reitest
+    network: reidev
     source:
       address: '0x0000000000000000000000000000000000001005'
       abi: StakeManager
