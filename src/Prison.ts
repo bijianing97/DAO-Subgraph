@@ -14,21 +14,9 @@ export function handlePrisonBlock(block: ethereum.Block): void {
   }
   for (let i = BigInt.fromU32(0); i.lt(jailedContractsLength); i = i.plus(BigInt.fromU32(1))) {
     const minerAddress = prison.getJailedMinersByIndex(i)
-    let minerInfo = MinerInfo.load(minerAddress.toHex())
-    if (!minerInfo) {
-      minerInfo = new MinerInfo(minerAddress.toHex())
-      const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toHex()}`)
-      jailRecord.address = minerAddress
-      jailRecord.timestamp = block.timestamp
-      jailRecord.blockNumber = block.number
-      jailRecord.save()
-      minerInfo.jailedRecord = [jailRecord.id]
-      minerInfo.lastJailedId = jailRecord.id
-      minerInfo.lastJailedNumber = block.number
-      minerInfo.jailed = true
-      minerInfo.save()
-    } else if (!minerInfo.jailed) {
-      const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toHex()}`)
+    let minerInfo = MinerInfo.load(`${minerAddress.toHex()}`)
+    if (minerInfo && minerInfo.jailed == false) {
+      const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toString()}`)
       jailRecord.address = minerAddress
       jailRecord.timestamp = block.timestamp
       jailRecord.blockNumber = block.number
@@ -40,15 +28,25 @@ export function handlePrisonBlock(block: ethereum.Block): void {
       minerInfo.lastJailedNumber = block.number
       minerInfo.jailed = true
       minerInfo.save()
-    } else {
-      continue
+    } else if (!minerInfo) {
+      minerInfo = new MinerInfo(`${minerAddress.toHex()}`)
+      const jailRecord = new JailRecord(`${minerAddress.toHex()}-${block.number.toString()}`)
+      jailRecord.address = minerAddress
+      jailRecord.timestamp = block.timestamp
+      jailRecord.blockNumber = block.number
+      jailRecord.save()
+      minerInfo.jailedRecord = [jailRecord.id]
+      minerInfo.lastJailedId = jailRecord.id
+      minerInfo.lastJailedNumber = block.number
+      minerInfo.jailed = true
+      minerInfo.save()
     }
   }
 }
 
 export function handleUnjail(event: Unjail): void {
   const minerAddress = event.params.miner
-  const minerInfo = MinerInfo.load(minerAddress.toHex())
+  const minerInfo = MinerInfo.load(`${minerAddress.toHex()}`)
   if (!minerInfo) {
     return
   }
