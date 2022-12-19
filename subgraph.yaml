@@ -8,7 +8,7 @@ dataSources:
     source:
       address: '0x0000000000000000000000000000000000001001'
       abi: StakeManager
-      startBlock: 7206473
+      startBlock: 7213050
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -28,96 +28,96 @@ dataSources:
         - event: StartUnstake(indexed uint256,indexed address,indexed uint256,address,uint256,uint256)
           handler: handleStartUnstake
       file: ./src/StakeManager.ts
-  - kind: ethereum
-    name: Fee
-    network: reitest
-    source:
-      address: '0x0000000000000000000000000000000000001005'
-      abi: Fee
-      startBlock: 7206473
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Deposit
-      abis:
-        - name: Fee
-          file: ./abis/Fee.json
-      eventHandlers:
-        - event: Deposit(indexed address,indexed address,indexed uint256)
-          handler: handleDeposit
-        - event: Withdraw(indexed address,indexed address,indexed uint256)
-          handler: handleWithdraw
-      file: ./src/Fee.ts
-  - kind: ethereum
-    name: DaliyData
-    network: reitest
-    source:
-      address: '0x0000000000000000000000000000000000001005'
-      abi: Fee
-      startBlock: 7206473
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - TimestampOne
-        - SavingGas
-        - TimestampTwo
-        - TotalStake
-      abis:
-        - name: Fee
-          file: ./abis/Fee.json
-        - name: StakeManager
-          file: ./abis/StakeManager.json
-        - name: Getbalance
-          file: ./abis/Getbalance.json
-      eventHandlers:
-        - event: Usage(indexed uint256,indexed uint256)
-          handler: handleUsage
-      blockHandlers:
-        - handler: handleBlock
-      file: ./src/DaliyData.ts
-  - kind: ethereum
-    name: Validator
-    network: reitest
-    source:
-      address: '0x0000000000000000000000000000000000001005'
-      abi: StakeManager
-      startBlock: 7206473
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Validator
-      abis:
-        - name: StakeManager
-          file: ./abis/StakeManager.json
-      blockHandlers:
-        - handler: handleValidatorBlock
-      file: ./src/Validator.ts
-  - kind: ethereum
-    name: Prison
-    network: reitest
-    source:
-      address: '0x0000000000000000000000000000000000001008'
-      abi: Prison
-      startBlock: 7206473
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - JailRecord
-        - MinerInfo
-      abis:
-        - name: Prison
-          file: ./abis/Prison.json
-      blockHandlers:
-        - handler: handlePrisonBlock
-      eventHandlers:
-        - event: Unjail(indexed address,indexed uint256,uint256)
-          handler: handleUnjail
-      file: ./src/Prison.ts
+  # - kind: ethereum
+  #   name: Fee
+  #   network: reitest
+  #   source:
+  #     address: '0x0000000000000000000000000000000000001005'
+  #     abi: Fee
+  #     startBlock: 7213050
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.6
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Deposit
+  #     abis:
+  #       - name: Fee
+  #         file: ./abis/Fee.json
+  #     eventHandlers:
+  #       - event: Deposit(indexed address,indexed address,indexed uint256)
+  #         handler: handleDeposit
+  #       - event: Withdraw(indexed address,indexed address,indexed uint256)
+  #         handler: handleWithdraw
+  #     file: ./src/Fee.ts
+  # - kind: ethereum
+  #   name: DaliyData
+  #   network: reitest
+  #   source:
+  #     address: '0x0000000000000000000000000000000000001005'
+  #     abi: Fee
+  #     startBlock: 7213050
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.6
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - TimestampOne
+  #       - SavingGas
+  #       - TimestampTwo
+  #       - TotalStake
+  #     abis:
+  #       - name: Fee
+  #         file: ./abis/Fee.json
+  #       - name: StakeManager
+  #         file: ./abis/StakeManager.json
+  #       - name: Getbalance
+  #         file: ./abis/Getbalance.json
+  #     eventHandlers:
+  #       - event: Usage(indexed uint256,indexed uint256)
+  #         handler: handleUsage
+  #     blockHandlers:
+  #       - handler: handleBlock
+  #     file: ./src/DaliyData.ts
+  # - kind: ethereum
+  #   name: Validator
+  #   network: reitest
+  #   source:
+  #     address: '0x0000000000000000000000000000000000001005'
+  #     abi: StakeManager
+  #     startBlock: 7213050
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.6
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Validator
+  #     abis:
+  #       - name: StakeManager
+  #         file: ./abis/StakeManager.json
+  #     blockHandlers:
+  #       - handler: handleValidatorBlock
+  #     file: ./src/Validator.ts
+  # - kind: ethereum
+  #   name: Prison
+  #   network: reitest
+  #   source:
+  #     address: '0x0000000000000000000000000000000000001008'
+  #     abi: Prison
+  #     startBlock: 7213050
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.6
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - JailRecord
+  #       - MinerInfo
+  #     abis:
+  #       - name: Prison
+  #         file: ./abis/Prison.json
+  #     blockHandlers:
+  #       - handler: handlePrisonBlock
+  #     eventHandlers:
+  #       - event: Unjail(indexed address,indexed uint256,uint256)
+  #         handler: handleUnjail
+  #     file: ./src/Prison.ts
