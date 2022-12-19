@@ -1,11 +1,15 @@
 import { Address } from '@graphprotocol/graph-ts'
 import { StakeManager } from '../types/Validator/StakeManager'
+import { Getbalance } from '../types/DaliyData/Getbalance'
+import { Prison } from '../types/Prison/Prison'
 
-const balanceAddress = '0x56223c34367D366AA2572Cdaa63c88D059288506'
+const balanceAddress = '0xE0a1CEaA5d922bf3733f1e58Ea52aeBF55C2D9ef'
 const stakeManagerAddress = '0x0000000000000000000000000000000000001001'
 const prisonAddress = '0x0000000000000000000000000000000000001008'
 export const feeAddress = '0x0000000000000000000000000000000000001005'
+export const getbalance = Getbalance.bind(Address.fromString(balanceAddress))
 export const stakemanager = StakeManager.bind(Address.fromString(stakeManagerAddress))
+export const prison = Prison.bind(Address.fromString(prisonAddress))
 export const GasSaveInterval = 3600
 export const TotalStakeInterval = 3600
 export const hardforkBlock = 0
