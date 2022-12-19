@@ -323,7 +323,157 @@ curl -X POST -d '{ "query": "{validators{id,Validator{id,address,votingPower,com
 }
 ```
 
+---
+### StakeInfoMore
+```ts
+// Record the stake infomation
+type StakeInfoMore @entity {
+  id: ID!
+  from: Bytes! //from address
+  validator: Bytes! //validator address
+  timestamp: BigInt! //timestamp
+  to: Bytes! //to address
+  shares: BigInt! //shares
+}
+```
+- call example
 
+```sh
+curl -X POST -d '{ "query": "{stakeInfoMores{id,from,validator,to,shares}}"}' http://localhost:8000/subgraphs/name/chainmonitor| json_pp
+```
+
+---
+### MinerInfo
+```ts
+// MinerInfo entity include jailed record, relate the following JailRecord entity 
+type MinerInfo @entity {
+  id: ID! //miner address
+  lastJailedNumber: BigInt! //lastJailedNumber
+  lastJailedId: String! //lastJailedId
+  jailed: Boolean! //jailed or not 
+  jailedRecord: [JailRecord!]! //jailed record
+}
+```
+- call example
+
+```sh
+curl -X POST -d '{ "query": "{minerInfos{id,lastJailedNumber,lastJailedId,jailed,jailedRecord{id,address,blockNumber,timestamp,unjailedBlockNumber,unjailedTimestamp,unjailedForfeit}}}"}' http://localhost:8000/subgraphs/name/chainMonitorBetterPos | json_pp
+```
+
+```json
+{
+   "data" : {
+      "minerInfos" : [
+         {
+            "id" : "0xc59655d4e7d1c215ff584794635a7d24cafce407",
+            "jailed" : true,
+            "jailedRecord" : [
+               {
+                  "address" : "0xc59655d4e7d1c215ff584794635a7d24cafce407",
+                  "blockNumber" : "298826",
+                  "id" : "0xc59655d4e7d1c215ff584794635a7d24cafce407-298826",
+                  "timestamp" : "1671163358",
+                  "unjailedBlockNumber" : null,
+                  "unjailedForfeit" : null,
+                  "unjailedTimestamp" : null
+               }
+            ],
+            "lastJailedId" : "0xc59655d4e7d1c215ff584794635a7d24cafce407-298826",
+            "lastJailedNumber" : "298826"
+         }
+      ]
+   }
+}
+```
+
+---
+### MinerInfo
+```ts
+// MinerInfo entity include jailed record, relate the following JailRecord entity 
+type MinerInfo @entity {
+  id: ID! //miner address
+  lastJailedNumber: BigInt! //lastJailedNumber
+  lastJailedId: String! //lastJailedId
+  jailed: Boolean! //jailed or not 
+  jailedRecord: [JailRecord!]! //jailed record
+}
+```
+- call example
+
+```sh
+curl -X POST -d '{ "query": "{minerInfos{id,lastJailedNumber,lastJailedId,jailed,jailedRecord{id,address,blockNumber,timestamp,unjailedBlockNumber,unjailedTimestamp,unjailedForfeit}}}"}' http://localhost:8000/subgraphs/name/chainMonitorBetterPos | json_pp
+```
+
+```json
+{
+   "data" : {
+      "minerInfos" : [
+         {
+            "id" : "0xc59655d4e7d1c215ff584794635a7d24cafce407",
+            "jailed" : true,
+            "jailedRecord" : [
+               {
+                  "address" : "0xc59655d4e7d1c215ff584794635a7d24cafce407",
+                  "blockNumber" : "298826",
+                  "id" : "0xc59655d4e7d1c215ff584794635a7d24cafce407-298826",
+                  "timestamp" : "1671163358",
+                  "unjailedBlockNumber" : null,
+                  "unjailedForfeit" : null,
+                  "unjailedTimestamp" : null
+               }
+            ],
+            "lastJailedId" : "0xc59655d4e7d1c215ff584794635a7d24cafce407-298826",
+            "lastJailedNumber" : "298826"
+         }
+      ]
+   }
+}
+```
+
+---
+### JailRecord
+```ts
+// MinerInfo entity include jailed record, relate the following JailRecord entity 
+type JailRecord @entity {
+  id: ID!   // miner address + blockNumber
+  address: Bytes! //miner address
+  blockNumber: BigInt!  //blockNumber
+  timestamp: BigInt!    //timestamp
+  unjailedBlockNumber: BigInt    //unjailedBlockNumber, null if not jailed
+  unjailedTimestamp: BigInt   // unjailedTimestamp, null if not jailed
+  unjailedForfeit: BigInt     // unjailedForfeit, null if not jailed
+}
+```
+- call example
+
+```sh
+curl -X POST -d '{ "query": "{jailRecords{id,address,blockNumber,unjailedBlockNumber,unjailedTimestamp,unjailedForfeit}}"}' http://localhost:8000/subgraphs/name/chainMonitorBetterPos | json_pp
+```
+
+```json
+{
+   "data" : {
+      "jailRecords" : [
+         {
+            "address" : "0xc59655d4e7d1c215ff584794635a7d24cafce407",
+            "blockNumber" : "298826",
+            "id" : "0xc59655d4e7d1c215ff584794635a7d24cafce407-298826",
+            "unjailedBlockNumber" : null,
+            "unjailedForfeit" : null,
+            "unjailedTimestamp" : null
+         }
+      ]
+   }
+}
+```
+
+## Version 0.0.1
 Subgraph endpoints:
 Queries (HTTP):     http://localhost:8000/subgraphs/name/chainmonitor
 Subscriptions (WS): http://localhost:8001/subgraphs/name/chainmonitor
+## Version 0.0.2
+testnet hardfork blocknumber: 7216473
+mainnet hardfork blocknumber: 
+Subgraph endpoints:
+Queries (HTTP):     http://localhost:8000/subgraphs/name/chainMonitorBetterPos
+Subscriptions (WS): http://localhost:8001/subgraphs/name/chainMonitorBetterPos
