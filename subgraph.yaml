@@ -121,3 +121,45 @@ dataSources:
         - event: Unjail(indexed address,indexed uint256,uint256)
           handler: handleUnjail
       file: ./src/Prison.ts
+  - kind: ethereum
+    name: ValidatorBLSOld
+    network: reidev
+    source:
+      address: '0x094319890280E2c6430091FEc44822540229ca62'
+      abi: ValidatorBLS
+      startBlock: 298000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - BlsSetRecord
+        - BlsValidator
+      abis:
+        - name: ValidatorBLS
+          file: ./abis/ValidatorBLS.json
+      eventHandlers:
+        - event: SetBLSPublicKey(indexed address,bytes)
+          handler: handleSetBLSPublicKeyOld
+      file: ./src/Validator.ts
+  - kind: ethereum
+    name: ValidatorBLS
+    network: reidev
+    source:
+      address: '0x0000000000000000000000000000000000001009'
+      abi: ValidatorBLS
+      startBlock: 298000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - BlsSetRecord
+        - BlsValidator
+      abis:
+        - name: ValidatorBLS
+          file: ./abis/ValidatorBLS.json
+      eventHandlers:
+        - event: SetBLSPublicKey(indexed address,bytes)
+          handler: handleSetBLSPublicKey
+      file: ./src/Validator.ts
