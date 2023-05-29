@@ -4,11 +4,11 @@
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ chainMonitorBetterPos",
-    "create-local": "graph create --node http://localhost:8020/ chainMonitorBetterPos",
-    "remove-local": "graph remove --node http://localhost:8020/ chainMonitorBetterPos",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainMonitorBetterPos",
-    "one": "graph remove --node http://localhost:8020/ chainMonitorBetterPos && graph codegen --output-dir src/types/ && graph build && graph create --node http://localhost:8020/ chainMonitorBetterPos && graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainMonitorBetterPos",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ bls",
+    "create-local": "graph create --node http://localhost:8020/ bls",
+    "remove-local": "graph remove --node http://localhost:8020/ bls",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 bls",
+    "one": "graph remove --node http://localhost:8020/ bls && graph codegen --output-dir src/types/ && graph build && graph create --node http://localhost:8020/ bls && graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 bls",
     "clean": "rm -rf build/ && rm -rf src/types/"
   },
   "dependencies": {
