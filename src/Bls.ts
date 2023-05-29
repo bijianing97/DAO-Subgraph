@@ -23,11 +23,16 @@ export function handleSetBLSPublicKeyOld(event: SetBLSPublicKeyOld): void {
   let validatorInstance = BlsValidator.load(validatorId)
   if (!validatorInstance) {
     validatorInstance = new BlsValidator(validatorId)
+    validatorInstance.lastBLSPublicKey = publicKey
+    validatorInstance.lastSetBlockNumber = event.block.number
+    validatorInstance.setTime = BigInt.fromI32(1)
+    validatorInstance.setRecord.push(recordID)
+  } else {
+    validatorInstance.lastBLSPublicKey = publicKey
+    validatorInstance.lastSetBlockNumber = event.block.number
+    validatorInstance.setTime = validatorInstance.setTime.plus(BigInt.fromI32(1))
+    validatorInstance.setRecord.push(recordID)
   }
-  validatorInstance.lastBLSPublicKey = publicKey
-  validatorInstance.lastSetBlockNumber = event.block.number
-  validatorInstance.setTime = validatorInstance.setTime.plus(BigInt.fromI32(1))
-  validatorInstance.setRecord.push(recordID)
   validatorInstance.save()
 }
 
@@ -51,10 +56,15 @@ export function handleSetBLSPublicKey(event: SetBLSPublicKey): void {
   let validatorInstance = BlsValidator.load(validatorId)
   if (!validatorInstance) {
     validatorInstance = new BlsValidator(validatorId)
+    validatorInstance.lastBLSPublicKey = publicKey
+    validatorInstance.lastSetBlockNumber = event.block.number
+    validatorInstance.setTime = BigInt.fromI32(1)
+    validatorInstance.setRecord.push(recordID)
+  } else {
+    validatorInstance.lastBLSPublicKey = publicKey
+    validatorInstance.lastSetBlockNumber = event.block.number
+    validatorInstance.setTime = validatorInstance.setTime.plus(BigInt.fromI32(1))
+    validatorInstance.setRecord.push(recordID)
   }
-  validatorInstance.lastBLSPublicKey = publicKey
-  validatorInstance.lastSetBlockNumber = event.block.number
-  validatorInstance.setTime = validatorInstance.setTime.plus(BigInt.fromI32(1))
-  validatorInstance.setRecord.push(recordID)
   validatorInstance.save()
 }
