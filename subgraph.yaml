@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: ValidatorBLSOld
-    network: reidev
+    network: reitest
     source:
       address: '0x094319890280E2c6430091FEc44822540229ca62'
       abi: ValidatorBLS
@@ -25,7 +25,7 @@ dataSources:
       file: ./src/Bls.ts
   - kind: ethereum
     name: ValidatorBLS
-    network: reidev
+    network: reitest
     source:
       address: '0x0000000000000000000000000000000000001009'
       abi: ValidatorBLS
