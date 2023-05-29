@@ -6,7 +6,7 @@ import { SetBLSPublicKey as SetBLSPublicKeyOld } from './types/ValidatorBLSOld/V
 export function handleSetBLSPublicKeyOld(event: SetBLSPublicKeyOld): void {
   const validator = event.params.validator
   const publicKey = event.params.BLSPublicKey
-  const recordID = `${validator.toHex()}-${publicKey.toHex()}-${event.transaction.hash.toString()}-${event.logIndex.toString()}`
+  const recordID = `${validator.toHex()}-${publicKey.toHex()}-${event.transaction.hash.toHex()}-${event.logIndex.toHex()}`
   let recordInstance = BlsSetRecord.load(recordID)
   if (recordInstance) {
     return
@@ -41,7 +41,7 @@ export function handleSetBLSPublicKeyOld(event: SetBLSPublicKeyOld): void {
 export function handleSetBLSPublicKey(event: SetBLSPublicKey): void {
   const validator = event.params.validator
   const publicKey = event.params.BLSPublicKey
-  const recordID = `${validator.toHex()}-${publicKey.toHex()}-${event.transaction.hash.toString()}-${event.logIndex.toString()}`
+  const recordID = `${validator.toHex()}-${publicKey.toHex()}-${event.transaction.hash.toHex()}-${event.logIndex.toHex()}`
   let recordInstance = BlsSetRecord.load(recordID)
   if (recordInstance) {
     return
