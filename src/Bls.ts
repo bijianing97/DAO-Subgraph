@@ -17,6 +17,7 @@ export function handleSetBLSPublicKeyOld(event: SetBLSPublicKeyOld): void {
     recordInstance.blsPublicKey = publicKey
     recordInstance.transactionHash = event.transaction.hash
     recordInstance.blockNumber = event.block.number
+    recordInstance.timestamp = event.block.timestamp
     recordInstance.save()
   }
   const validatorId = validator.toHex()
@@ -25,12 +26,14 @@ export function handleSetBLSPublicKeyOld(event: SetBLSPublicKeyOld): void {
     validatorInstance = new BlsValidator(validatorId)
     validatorInstance.lastBLSPublicKey = publicKey
     validatorInstance.lastSetBlockNumber = event.block.number
+    validatorInstance.lastSetTimestamp = event.block.timestamp
     validatorInstance.setTime = BigInt.fromI32(1)
     validatorInstance.setRecord = [recordID]
   } else {
     validatorInstance.lastBLSPublicKey = publicKey
     validatorInstance.lastSetBlockNumber = event.block.number
     validatorInstance.setTime = validatorInstance.setTime.plus(BigInt.fromI32(1))
+    validatorInstance.lastSetTimestamp = event.block.timestamp
     let setRecord = validatorInstance.setRecord
     setRecord.push(recordID)
     validatorInstance.setRecord = setRecord
@@ -52,6 +55,7 @@ export function handleSetBLSPublicKey(event: SetBLSPublicKey): void {
     recordInstance.blsPublicKey = publicKey
     recordInstance.transactionHash = event.transaction.hash
     recordInstance.blockNumber = event.block.number
+    recordInstance.timestamp = event.block.timestamp
     recordInstance.save()
   }
   const validatorId = validator.toHex()
@@ -60,12 +64,14 @@ export function handleSetBLSPublicKey(event: SetBLSPublicKey): void {
     validatorInstance = new BlsValidator(validatorId)
     validatorInstance.lastBLSPublicKey = publicKey
     validatorInstance.lastSetBlockNumber = event.block.number
+    validatorInstance.lastSetTimestamp = event.block.timestamp
     validatorInstance.setTime = BigInt.fromI32(1)
     validatorInstance.setRecord = [recordID]
   } else {
     validatorInstance.lastBLSPublicKey = publicKey
     validatorInstance.lastSetBlockNumber = event.block.number
     validatorInstance.setTime = validatorInstance.setTime.plus(BigInt.fromI32(1))
+    validatorInstance.lastSetTimestamp = event.block.timestamp
     let setRecord = validatorInstance.setRecord
     setRecord.push(recordID)
     validatorInstance.setRecord = setRecord
