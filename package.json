@@ -4,11 +4,11 @@
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ chainMonitorBetterPos",
-    "create-local": "graph create --node http://localhost:8020/ chainMonitorBetterPos",
-    "remove-local": "graph remove --node http://localhost:8020/ chainMonitorBetterPos",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainMonitorBetterPos",
-    "one": "graph remove --node http://localhost:8020/ chainMonitorBetterPos && graph codegen --output-dir src/types/ && graph build && graph create --node http://localhost:8020/ chainMonitorBetterPos && graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainMonitorBetterPos",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ chainMonitorBetterPosv2",
+    "create-local": "graph create --node http://localhost:8777/ chainMonitorBetterPosv2",
+    "remove-local": "graph remove --node http://localhost:8777/ chainMonitorBetterPosv2",
+    "deploy-local": "graph deploy --node http://localhost:8777/ --ipfs http://localhost:5001 chainMonitorBetterPosv2",
+    "one": "graph remove --node http://localhost:8777/ chainMonitorBetterPosv2 && graph codegen --output-dir src/types/ && graph build && graph create --node http://localhost:8777/ chainMonitorBetterPosv2 && graph deploy --node http://localhost:8777/ --ipfs http://localhost:5001 chainMonitorBetterPosv2",
     "clean": "rm -rf build/ && rm -rf src/types/"
   },
   "dependencies": {

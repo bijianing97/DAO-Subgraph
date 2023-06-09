@@ -1,6 +1,6 @@
 import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'
 import { Validator, ValidatorInfo } from './types/schema'
-import { stakemanager, genesisValidators, hardforkBlock } from './utils/helper'
+import { stakemanager, genesisValidators, hardforkBlock, blockInterval } from './utils/helper'
 
 function createValidatorInfo(address: Address, blocknumber: BigInt): string {
   const validator = stakemanager.validators(address)
@@ -42,10 +42,14 @@ function validatorsDecode(data: Bytes): BigInt[] {
 }
 
 export function handleValidatorBlock(block: ethereum.Block): void {
+  const blockNumber = block.number
+  const lastId = blockNumber.minus(BigInt.fromU32(blockInterval)).toString()
   const id = block.number.toString()
-  let ValidatorInstance = Validator.load(id)
+  let ValidatorInstance = Validator.load(lastId)
   if (!ValidatorInstance) {
     ValidatorInstance = new Validator(id)
+  } else {
+    ValidatorInstance.id = id
   }
   let validators: string[] = []
   const indexedValidatorsLength = stakemanager.indexedValidatorsLength()
