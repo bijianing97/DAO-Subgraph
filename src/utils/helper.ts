@@ -13,6 +13,7 @@ export const prison = Prison.bind(Address.fromString(prisonAddress))
 export const GasSaveInterval = 3600
 export const TotalStakeInterval = 3600
 export const hardforkBlock = 7216473
+export const blockInterval = 216000
 export const genesisValidators = [
   '0x4779af7e65c055979c8100f2183635e5d28c78f5',
   '0x116f46eb05d5e42b4cd10e70b1b49706942f5948',
