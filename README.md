@@ -1,6 +1,18 @@
 # DAOSubgraph
 This a subgraph for rei-DAO service
 
+We splited DAO for three parts
+- Block:  
+  - feat-mainnet-block :Validator, DaliyData
+- Event: 
+  - feat-mainnet-event: StakeManager, Fee
+- BlockAndEvent
+  - feat-mainnet-prison: Prison
+
+Also We have other modules
+- Erc20-factory
+- VoteReward
+
 ## entity
 
 ### GasSave
