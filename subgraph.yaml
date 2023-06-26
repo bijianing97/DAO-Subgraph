@@ -3,52 +3,6 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: StakeManager
-    network: reimain
-    source:
-      address: '0x0000000000000000000000000000000000001001'
-      abi: StakeManager
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - StakeInfo
-        - StakeInfoMore
-        - UnStakeInfo
-      abis:
-        - name: StakeManager
-          file: ./abis/StakeManager.json
-      eventHandlers:
-        - event: DoUnstake(indexed uint256,indexed address,address,uint256)
-          handler: handleDoUnstake
-        - event: Stake(indexed address,indexed uint256,address,uint256)
-          handler: handleStake
-        - event: StartUnstake(indexed uint256,indexed address,indexed uint256,address,uint256,uint256)
-          handler: handleStartUnstake
-      file: ./src/StakeManager.ts
-  - kind: ethereum
-    name: Fee
-    network: reimain
-    source:
-      address: '0x0000000000000000000000000000000000001005'
-      abi: Fee
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Deposit
-      abis:
-        - name: Fee
-          file: ./abis/Fee.json
-      eventHandlers:
-        - event: Deposit(indexed address,indexed address,indexed uint256)
-          handler: handleDeposit
-        - event: Withdraw(indexed address,indexed address,indexed uint256)
-          handler: handleWithdraw
-      file: ./src/Fee.ts
-  - kind: ethereum
     name: DaliyData
     network: reimain
     source:
@@ -96,26 +50,3 @@ dataSources:
       blockHandlers:
         - handler: handleValidatorBlock
       file: ./src/Validator.ts
-  - kind: ethereum
-    name: Prison
-    network: reimain
-    source:
-      address: '0x0000000000000000000000000000000000001008'
-      abi: Prison
-      startBlock: 9600000
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - JailRecord
-        - MinerInfo
-      abis:
-        - name: Prison
-          file: ./abis/Prison.json
-      blockHandlers:
-        - handler: handlePrisonBlock
-      eventHandlers:
-        - event: Unjail(indexed address,indexed uint256,uint256)
-          handler: handleUnjail
-      file: ./src/Prison.ts
