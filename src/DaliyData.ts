@@ -1,5 +1,5 @@
 import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
-import { Usage } from './types/Fee/Fee'
+import { Usage } from './types/DaliyData/Fee'
 import { TimestampOne, TimestampTwo, GasSave, TotalStake } from './types/schema'
 import { feeAddress, getbalance, stakemanager, GasSaveInterval, TotalStakeInterval } from './utils/helper'
 
