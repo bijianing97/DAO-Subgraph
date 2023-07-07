@@ -52,3 +52,21 @@ type MinerInfo @entity {
   jailed: Boolean!
   jailedRecord: [JailRecord!]!
 }
+
+type BlsSetRecord @entity {
+  id: ID!
+  validator: Bytes!
+  blsPublicKey: Bytes!
+  blockNumber: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+}
+
+type BlsValidator @entity {
+  id: ID!
+  lastBLSPublicKey: Bytes!
+  lastSetBlockNumber: BigInt!
+  lastSetTimestamp: BigInt!
+  setTime: BigInt!
+  setRecord: [BlsSetRecord!]!
+}
