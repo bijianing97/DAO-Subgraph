@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: DaliyData
-    network: reimain
+    network: reitest
     source:
       address: '0x0000000000000000000000000000000000001005'
       abi: Fee
@@ -33,7 +33,7 @@ dataSources:
       file: ./src/DaliyData.ts
   - kind: ethereum
     name: Validator
-    network: reimain
+    network: reitest
     source:
       address: '0x0000000000000000000000000000000000001005'
       abi: StakeManager
