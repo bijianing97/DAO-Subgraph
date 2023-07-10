@@ -5,10 +5,10 @@
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ chainMonitorEvent",
-    "create-local": "graph create --node http://localhost:8777/ chainMonitorEvent",
-    "remove-local": "graph remove --node http://localhost:8777/ chainMonitorEvent",
-    "deploy-local": "graph deploy --node http://localhost:8777/ --ipfs http://localhost:5001 chainMonitorEvent",
-    "one": "graph remove --node http://localhost:8777/ chainMonitorEvent && graph codegen --output-dir src/types/ && graph build && graph create --node http://localhost:8777/ chainMonitorEvent && graph deploy --node http://localhost:8777/ --ipfs http://localhost:5001 chainMonitorEvent",
+    "create-local": "graph create --node http://localhost:8020/ chainMonitorEvent",
+    "remove-local": "graph remove --node http://localhost:8020/ chainMonitorEvent",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainMonitorEvent",
+    "one": "graph remove --node http://localhost:8020/ chainMonitorEvent && graph codegen --output-dir src/types/ && graph build && graph create --node http://localhost:8020/ chainMonitorEvent && graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 chainMonitorEvent",
     "clean": "rm -rf build/ && rm -rf src/types/"
   },
   "dependencies": {

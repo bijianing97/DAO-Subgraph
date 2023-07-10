@@ -8,7 +8,7 @@ export const feeAddress = '0x0000000000000000000000000000000000001005'
 export const stakemanager = StakeManager.bind(Address.fromString(stakeManagerAddress))
 export const GasSaveInterval = 3600
 export const TotalStakeInterval = 3600
-export const hardforkBlock = 9629061
+export const hardforkBlock = 7216473
 export const blockInterval = 648000
 export const genesisValidators = [
   '0x2957879b3831b5ac1ef0ea1fb08dd21920f439b4',

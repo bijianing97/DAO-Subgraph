@@ -54,7 +54,7 @@ dataSources:
     source:
       address: '0x5b84072EE3e72a58A906FA15182beEdaB5298076'
       abi: ValidatorBLS
-      startBlock: 13665080
+      startBlock: 13280218
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -75,7 +75,7 @@ dataSources:
     source:
       address: '0x0000000000000000000000000000000000001009'
       abi: ValidatorBLS
-      startBlock: 13665080
+      startBlock: 13280218
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
