@@ -3,24 +3,30 @@ import { Stake, StartUnstake, DoUnstake } from './types/StakeManager/StakeManage
 
 export function handleStake(event: Stake): void {
   const from = event.transaction.from
+  const to = event.params.to
   const validator = event.params.validator
-  const id = `${from.toHex()}-${validator.toHex()}`
-  const id2 = `${validator.toHex()}-${from.toHex()}-${event.transaction.hash.toString()}-${event.logIndex.toString()}`
+  const id = `${to.toHex()}-${validator.toHex()}`
+  const id2 = `${validator.toHex()}-${to.toHex()}-${event.transaction.hash.toHex()}-${event.logIndex.toHex()}`
   let instance = StakeInfo.load(id)
   const instance2 = new StakeInfoMore(id2)
   instance2.from = from
   instance2.validator = validator
   instance2.timestamp = event.block.timestamp
+  instance2.transactionHash = event.transaction.hash
   instance2.to = event.params.to
   instance2.shares = event.params.shares
   instance2.save()
   if (!instance) {
     instance = new StakeInfo(id)
+    instance.from = from
+    instance.validator = validator
+    instance.timestamp = event.block.timestamp
+    instance.to = to
+    instance.transactionHash = event.transaction.hash
+    instance.save()
+  } else {
+    return
   }
-  instance.from = from
-  instance.validator = validator
-  instance.timestamp = event.block.timestamp
-  instance.save()
 }
 
 export function handleStartUnstake(event: StartUnstake): void {

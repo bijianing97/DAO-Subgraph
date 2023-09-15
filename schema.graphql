@@ -2,7 +2,9 @@ type StakeInfo @entity {
   id: ID!
   from: Bytes!
   validator: Bytes! # address
+  to: Bytes!
   timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
 type StakeInfoMore @entity {
@@ -12,6 +14,7 @@ type StakeInfoMore @entity {
   timestamp: BigInt!
   to: Bytes!
   shares: BigInt!
+  transactionHash: Bytes!
 }
 
 type UnStakeInfo @entity {
